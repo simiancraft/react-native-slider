@@ -1,1 +1,1 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var RNCSlider=require('./RNCSliderNativeComponent').default;var _default=exports.default=RNCSlider;
+Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _reactNative=require("react-native");var RNCSlider;if(_reactNative.Platform.OS==='web'){RNCSlider=require('./RNCSliderNativeComponent.web').default;}else{RNCSlider=require('./RNCSliderNativeComponent.native').default;}var _default=exports.default=RNCSlider;
