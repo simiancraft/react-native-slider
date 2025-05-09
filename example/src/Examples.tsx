@@ -1,10 +1,10 @@
-import React, {FC, useCallback, useState} from 'react';
+import React, {FC, ReactElement, useCallback, useState} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import Slider, {MarkerProps, SliderProps} from '@react-native-community/slider';
 
 export interface Props {
   title: string;
-  render(): JSX.Element;
+  render(): ReactElement;
   platform?: string;
 }
 

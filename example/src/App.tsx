@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {
-  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
+  Platform,
 } from 'react-native';
-import {examples, Props as ExamplesTabProperties} from './Examples';
-import {propsExamples, Props as PropsTabProperties} from './Props';
-import PagerView from 'react-native-pager-view';
+import {examples} from './Examples';
+import {propsExamples} from './Props';
 import Slider from '@react-native-community/slider';
 
 const App = () => {
@@ -17,28 +17,31 @@ const App = () => {
   const titles = ['Examples', 'Props'];
 
   const renderExampleTab = (
-    sliders: PropsTabProperties[] | ExamplesTabProperties[],
-    filtered?: boolean,
+    sliders: any[],
+    filtered = false,
   ) => {
     return (
-      <View>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.container}>
-          {(filtered
-            ? (sliders as ExamplesTabProperties[]).filter(
-                e => !e.platform || e.platform === Platform.OS,
-              )
-            : sliders
-          ).map((e, i) => (
-            <View key={`slider${i}`} style={styles.sliderWidget}>
-              <Text style={styles.instructions}>{e.title}</Text>
-              {e.render()}
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.container}>
+        {(filtered
+          ? sliders.filter(
+              e => !e.platform || e.platform === Platform.OS,
+            )
+          : sliders
+        ).map((e, i) => (
+          <View key={`slider${i}`} style={styles.sliderWidget}>
+            <Text style={styles.instructions}>{e.title}</Text>
+            {e.render()}
+          </View>
+        ))}
+      </ScrollView>
     );
+  };
+
+  // Toggle between tabs
+  const toggleTab = () => {
+    setCurrentPage(currentPage === 0 ? 1 : 0);
   };
 
   return (
@@ -55,19 +58,20 @@ const App = () => {
           maximumTrackTintColor={pageViewPositionSlider.trackColor}
           minimumTrackTintColor={pageViewPositionSlider.trackColor}
         />
-        <Text testID="testTextId" style={styles.title}>
-          {titles[currentPage]}
-        </Text>
+        <TouchableOpacity onPress={toggleTab}>
+          <Text testID="testTextId" style={styles.title}>
+            {titles[currentPage]} (Tap to switch)
+          </Text>
+        </TouchableOpacity>
       </View>
-      <PagerView
-        initialPage={0}
-        style={styles.pagerViewContainer}
-        onPageSelected={e => {
-          setCurrentPage(e.nativeEvent.position);
-        }}>
-        {renderExampleTab(examples, true)}
-        {renderExampleTab(propsExamples)}
-      </PagerView>
+      
+      {/* Show the current tab based on state */}
+      <View style={styles.tabContent}>
+        {currentPage === 0 ? 
+          renderExampleTab(examples, true) : 
+          renderExampleTab(propsExamples)
+        }
+      </View>
     </SafeAreaView>
   );
 };
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
   slider: {
     width: '100%',
   },
-  pagerViewContainer: {
+  tabContent: {
     flex: 1,
   },
   homeScreenContainer: {
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: '#F5FCFF',
+    flex: 1,
   },
   container: {
     justifyContent: 'center',
