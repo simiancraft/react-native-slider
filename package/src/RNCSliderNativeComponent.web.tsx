@@ -259,6 +259,7 @@ const RCTSliderWebComponent = React.forwardRef(
     const updateContainerPositionX = () => {
       const positionX = (
         containerRef as RefObject<HTMLElement | undefined>
+        //@ts-expect-error
       ).current?.getBoundingClientRect().x;
       containerPositionX.current = positionX ?? 0;
     };
