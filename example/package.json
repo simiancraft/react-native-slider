@@ -15,12 +15,12 @@
     "clean-ios": "rm -rf ios/build/generated/ios && rm -rf ios/Pods && rm ios/Podfile.lock"
   },
   "dependencies": {
-    "@react-native-community/slider": "4.5.6",
+    "@react-native-community/slider": "file:../package",
     "babel-preset-expo": "^9.2.0",
     "react": "19.0.0",
     "react-native": "0.79.2",
     "react-native-pager-view": "6.7.1",
-    "react-native-windows": "^0.76.3"
+    "react-native-windows": "^0.78.5"
   },
   "devDependencies": {
     "@babel/core": "7.27.1",
@@ -39,7 +39,7 @@
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
-    "babel-jest": "^29.6.3",
+    "babel-jest": "^29.7.0",
     "copyfiles": "^2.4.1",
     "eslint": "^8.19.0",
     "eslint-plugin-prettier": "4.2.1",
@@ -51,8 +51,7 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "bun": "^1.2.12",
-    "node": "^22.11.0"
+    "node": ">=18"
   },
   "react-native-windows": {
     "init-windows": {
