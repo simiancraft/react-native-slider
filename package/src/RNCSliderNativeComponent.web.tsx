@@ -1,5 +1,3 @@
-//@ts-ignore
-import ReactDOM from 'react-dom';
 import React, {RefObject, useCallback} from 'react';
 import {
   Animated,
@@ -259,13 +257,11 @@ const RCTSliderWebComponent = React.forwardRef(
     }, [maximumValue, minimumValue, step]);
 
     const updateContainerPositionX = () => {
-      //@ts-ignore
-      const positionX = ReactDOM.findDOMNode(
-        (containerRef as RefObject<any>).current,
-      ).getBoundingClientRect()?.x;
+      const positionX = (
+        containerRef as RefObject<HTMLElement | undefined>
+      ).current?.getBoundingClientRect().x;
       containerPositionX.current = positionX ?? 0;
     };
-
     const getValueFromNativeEvent = (pageX: number) => {
       const adjustForThumbSize = (containerSize.current.width || 1) > thumbSize;
       const width =
